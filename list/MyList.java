@@ -47,8 +47,8 @@ public class MyList {
 //        if(node.next == null)    return null;
 //        node.next = removeLast(node.next);
 //    }
-    public void removeFirst(String dataToRemove){
-        MyNode prev;
-        prev.next.next
-    }
+//    public void removeFirst(String dataToRemove){
+//        MyNode prev;
+//        prev.next.next
+//    }
 }

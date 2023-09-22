@@ -1,5 +1,4 @@
 import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
 
 public class UFCilent2 {
     public static int cnt, pos;

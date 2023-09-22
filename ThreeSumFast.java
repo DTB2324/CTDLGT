@@ -11,7 +11,7 @@ public class ThreeSumFast {
         for (int i = 0; i < a.length; i++) {
             for (int j = i + 1; j < a.length; j++) {
                 int k = Arrays.binarySearch(a, -(a[i] + a[j]));
-                if(k > j && k >= 0){
+                if(k > j){
                     System.out.println(++ans + ". " + a[i] + " + " + a[j] + " + " + a[k] + " = 0");
                 }
             }

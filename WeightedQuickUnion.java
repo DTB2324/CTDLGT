@@ -15,15 +15,15 @@ public class WeightedQuickUnion {
         int j = find(q);
         if (sz[i] < sz[j]) {
             id[i] = j;
-            sz[j]++;
+            sz[j]+=sz[i];
         } else {
             id[j] = i;
-            sz[i]++;
+            sz[i]+=sz[j];
         }
     }
 
     int find(int i) {
-        while (i != id[i]) {
+        while(i != id[i]){
             id[i] = id[id[i]];
             i = id[i];
         }
