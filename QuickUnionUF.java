@@ -1,3 +1,5 @@
+
+
 public class QuickUnionUF {
     private int[] id;
 

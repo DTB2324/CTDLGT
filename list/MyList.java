@@ -51,4 +51,19 @@ public class MyList {
 //        MyNode prev;
 //        prev.next.next
 //    }
+    public MyNode removeFirst(String data, MyNode node){
+        if(node == null)    return null;
+        if(node.data.equals(data)) return node.next;
+        node.next = removeFirst(data, node.next);
+        return node;
+    }
+
+    public MyNode removeAll(String data, MyNode node){
+        if(node == null) return null;
+        if(node.data.equals(data)){
+            return removeAll(data, node.next);
+        }
+        node.next = removeAll(data, node.next);
+        return node;
+    }
 }

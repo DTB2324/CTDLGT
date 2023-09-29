@@ -1,3 +1,5 @@
+
+
 public class WeightedQuickUnion {
     private int[] id;
     private int[] sz;
