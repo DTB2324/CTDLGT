@@ -1,0 +1,3 @@
+Thời gian chạy của thuật toán Selection Sort là khá chậm vì độ phức tạp của thuật toán là O(N^2).
+Thời gian sẽ tăng theo bình phương của số lượng phần tử, với dữ liệu lớn như 1Mints.txt (1 Triệu số nguyên)
+đã mất tới hơn 5 phút, thuật toán không phù hợp cho những dữ liệu lớn.
