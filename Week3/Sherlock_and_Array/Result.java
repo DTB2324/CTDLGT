@@ -1,7 +1,5 @@
 package Week3.Sherlock_and_Array;
 
-package Week3;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
@@ -51,7 +49,7 @@ class Solution {
                         .map(Integer::parseInt)
                         .collect(toList());
 
-                String result = Week3.Result.balancedSums(arr);
+                String result = Week3.Sherlock_and_Array.Result.balancedSums(arr);
 
                 bufferedWriter.write(result);
                 bufferedWriter.newLine();
