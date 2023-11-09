@@ -37,7 +37,7 @@ public class MergeSort {
 
     public static void main(String[] args) {
         MergeSort mergeSort = new MergeSort();
-        Integer[] a = {1, 55, 21, 17, 8, 4, 3, 10};
+        Integer[] a = {1, 55, 21, 21, 8, 4, 3, 4};
         mergeSort.sort(a);
     }
 }
