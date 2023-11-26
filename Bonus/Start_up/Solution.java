@@ -8,38 +8,47 @@ public class Solution {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        int event, amount = 0, marry, num = 0;
+        int event, amount = 0, marry;
         PriorityQueue<Integer> maxPQ = new PriorityQueue<>(Collections.reverseOrder());
+        Map<Integer, Integer> map = new HashMap<>();
+        Queue<Integer> queue = new LinkedList();
         for (int i = 0; i < N; i++) {
             event = sc.nextInt();
             if (event == 1) {
-                maxPQ.add(sc.nextInt());
+                int addNum = sc.nextInt();
+                maxPQ.add(addNum);
+                map.put(addNum, i + 1);
             } else if (event == 2) {
                 marry = sc.nextInt();
-                if(i < N - 1) {
-                    if (marry > num) {
-                        for (int j = 0; j < marry - 1; j++) {
-                            amount += maxPQ.poll();
-                            num++;
-                        }
-                    }
-                    else {
+
+                if (i < N - 1) {
+                    if (marry <= queue.size()) {
                         System.out.println(-1);
-                        amount = -1;
+                        return;
+                    } else {
+                        for (int j = queue.size(); j < marry - 1; j++) {
+                            int addNum = maxPQ.poll();
+                            queue.add(map.get(addNum));
+                            amount += addNum;
+                        }
                     }
                 } else {
-                    if (marry >= num) {
-                        for (int j = 0; j < marry - 1; j++) {
-                            amount += maxPQ.poll();
-                            num++;
-                        }
-                    }
-                    else {
+                    if (marry > maxPQ.size() + queue.size()) {
                         System.out.println(-1);
-                        amount = -1;
+                        return;
+                    } else {
+                        for (int j = queue.size(); j < marry; j++) {
+                            int addNum = maxPQ.poll();
+                            queue.add(map.get(addNum));
+                            amount += addNum;
+                        }
                     }
                 }
             }
+        }
+        System.out.println(amount);
+        for (int x : queue) {
+            System.out.print(x + " ");
         }
     }
 }

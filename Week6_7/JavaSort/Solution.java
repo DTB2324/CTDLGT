@@ -1,3 +1,5 @@
+package Week6_7.JavaSort;
+
 import java.io.*;
 import java.util.*;
 import java.util.Scanner;
