@@ -8,10 +8,11 @@ public class Solution {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        int event, amount = 0, marry;
+        long amount = 0;
+        int event, marry;
         PriorityQueue<Integer> maxPQ = new PriorityQueue<>(Collections.reverseOrder());
         Map<Integer, Integer> map = new HashMap<>();
-        Queue<Integer> queue = new LinkedList();
+        Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < N; i++) {
             event = sc.nextInt();
             if (event == 1) {
@@ -32,6 +33,8 @@ public class Solution {
                             amount += addNum;
                         }
                     }
+                    map.clear();
+                    maxPQ.clear();
                 } else {
                     if (marry > maxPQ.size() + queue.size()) {
                         System.out.println(-1);
