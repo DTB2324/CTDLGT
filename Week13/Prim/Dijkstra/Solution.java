@@ -1,4 +1,4 @@
-package Week13.Dijkstra;
+package Week13.Prim.Dijkstra;
 
 import java.io.*;
 import java.util.*;
@@ -48,13 +48,14 @@ class Result {
             int w = edge.get(2);
             adj.get(u).add(new Cost(w, v));
             adj.get(v).add(new Cost(w, u));
+            System.out.println(u + " " + v + " " + w);
         }
 
         PriorityQueue<Cost> pq = new PriorityQueue<>();
-        ArrayList<Integer> marked = new ArrayList<>(n + 1);
+        ArrayList<Integer> marked = new ArrayList<>();
 
-        for (int i = 1; i <= n; i++) {
-            marked.set(i, Integer.MAX_VALUE);
+        for (int i = 0; i <= n; i++) {
+            marked.add(Integer.MAX_VALUE);
         }
         marked.set(s, 0);
 
@@ -66,13 +67,22 @@ class Result {
             }
 
             for(Cost x : adj.get(cost.v)) {
-                if(marked.get(x.r) > cost.r + x.r) {
+                if(marked.get(x.v) > cost.r + x.r) {
                     marked.set(x.v, cost.r + x.r);
                     pq.add(new Cost(marked.get(x.v), x.v));
                 }
             }
         }
-        return marked;
+        ArrayList<Integer> result = new ArrayList<>();
+        for(int i = 1; i <= n; i++) {
+            if(marked.get(i) == Integer.MAX_VALUE) {
+                marked.set(i, -1);
+            }
+            if(i != s) {
+                result.add(marked.get(i));
+            }
+        }
+        return result;
     }
 
 }
