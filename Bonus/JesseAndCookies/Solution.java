@@ -1,78 +1,113 @@
 package Bonus.JesseAndCookies;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
+
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.function.*;
-import java.util.regex.*;
+
 import java.util.stream.*;
-import static java.util.stream.Collectors.joining;
+
 import static java.util.stream.Collectors.toList;
 
 class Result {
 
-    public static int sz;
-    public static int a[];
-    public static void add(int[] a, int sz, int x) {
-        a[++sz] = x;
-        int temp = sz;
-        while(temp != 1) {
-            int par = temp / 2;
-            if(a[par] > a[temp]) {
-                int y = a[temp];
-                a[temp] = a[par];
-                a[par] = y;
-            } else {
-                break;
-            }
-        }
-    }
 
-    public static void remove(int[] a, int sz) {
-        a[1] = a[sz--];
-        int temp = 1;
-        while(temp <= sz) {
-            int left = temp * 2;
-            int right = left + 1;
-            if(a[left] < a[right]) {
-                if(a[left] < a[temp]) {
-                    int y = a[temp];
-                    a[temp] = a[left];
-                    a[left] = y;
-                    temp = left;
+    static class CustomPriorityQueue {
+        private List<Integer> elements;
+
+        public CustomPriorityQueue() {
+            elements = new ArrayList<>();
+        }
+
+        public void add(int element) {
+            elements.add(element);
+
+            heapifyUp();
+        }
+
+        public int peek() {
+            if (isEmpty()) {
+                throw new IllegalStateException("Queue is empty");
+            }
+            return elements.get(0);
+        }
+
+        public int remove() {
+            if (isEmpty()) {
+                throw new IllegalStateException("Queue is empty");
+            }
+
+            int root = elements.get(0);
+            int removeNum = elements.remove(elements.size() - 1);
+            if (!isEmpty()) {
+                elements.set(0, removeNum);
+                heapifyDown();
+            }
+            return root;
+        }
+
+        public boolean isEmpty() {
+            return elements.isEmpty();
+        }
+
+        private void heapifyUp() {
+            int index = elements.size() - 1;
+            while (index > 0) {
+                int parentIndex = (index - 1) / 2;
+                if (elements.get(index) < elements.get(parentIndex)) {
+                    swap(index, parentIndex);
+                    index = parentIndex;
+                } else {
+                    break;
                 }
             }
         }
+
+        private void heapifyDown() {
+            int index = 0;
+            while (index < elements.size()) {
+                int leftChildIndex = 2 * index + 1;
+                int rightChildIndex = 2 * index + 2;
+                int smallest = index;
+
+                if (leftChildIndex < elements.size() && elements.get(leftChildIndex) < elements.get(smallest)) {
+                    smallest = leftChildIndex;
+                }
+
+                if (rightChildIndex < elements.size() && elements.get(rightChildIndex) < elements.get(smallest)) {
+                    smallest = rightChildIndex;
+                }
+
+                if (smallest != index) {
+                    swap(index, smallest);
+                    index = smallest;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        private void swap(int i, int j) {
+            int temp = elements.get(i);
+            elements.set(i, elements.get(j));
+            elements.set(j, temp);
+        }
+
+        public int size() {
+            return elements.size();
+        }
     }
 
-    /*
-     * Complete the 'cookies' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts following parameters:
-     *  1. INTEGER k
-     *  2. INTEGER_ARRAY A
-     */
-
     public static int cookies(int k, List<Integer> A) {
-        // Write your code here
         int ans = 0;
-        PriorityQueue<Integer> pqueue = new PriorityQueue<>();
+        CustomPriorityQueue pqueue = new CustomPriorityQueue();
         for (Integer x : A) {
             pqueue.add((int) x);
         }
-        while(!pqueue.isEmpty()) {
-            if(pqueue.peek() <= k) {
-                int rep = pqueue.remove();
-                pqueue.add(rep + 2 * pqueue.remove());
-                ans++;
-            }
-            else break;
+        while (pqueue.size() >= 2 && pqueue.peek() < k) {
+            pqueue.add(pqueue.remove() + 2 * pqueue.remove());
+            ans++;
         }
-        return ans;
+        return (pqueue.peek() < k) ? -1 : ans;
     }
 
 }
