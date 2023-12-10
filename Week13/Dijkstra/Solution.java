@@ -1,4 +1,4 @@
-package Week13.Prim.Dijkstra;
+package Week13.Dijkstra;
 
 import java.io.*;
 import java.util.*;
